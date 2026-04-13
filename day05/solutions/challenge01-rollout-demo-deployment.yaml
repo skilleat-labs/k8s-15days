@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollout-demo
+  annotations:
+    kubernetes.io/change-cause: "v1.0.0 초기 배포"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: rollout-demo
+  template:
+    metadata:
+      labels:
+        app: rollout-demo
+    spec:
+      containers:
+        - name: rollout-demo
+          image: skilleat/rollout-demo:v1.0.0
+          ports:
+            - containerPort: 8080

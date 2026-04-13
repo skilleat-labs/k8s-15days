@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollout-demo
+  annotations:
+    kubernetes.io/change-cause: "v3.0.0 배포 - Recreate 전략으로 전환"
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rollout-demo
+  template:
+    metadata:
+      labels:
+        app: rollout-demo
+    spec:
+      containers:
+        - name: rollout-demo
+          image: skilleat/rollout-demo:v3.0.0
+          ports:
+            - containerPort: 8080

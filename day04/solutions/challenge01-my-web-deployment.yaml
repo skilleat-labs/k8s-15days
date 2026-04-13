@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-web
+  name: my-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-web
+  template:
+    metadata:
+      labels:
+        app: my-web
+    spec:
+      containers:
+      - image: skilleat/pod-info-app:v2.0.0
+        name: my-web
+        ports:
+        - containerPort: 8080

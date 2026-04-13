@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-info-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-info
+  template:
+    metadata:
+      labels:
+        app: pod-info
+    spec:
+      containers:
+      - name: pod-info
+        image: skilleat/pod-info-app:v1.0.1
+        ports:
+        - containerPort: 8080
