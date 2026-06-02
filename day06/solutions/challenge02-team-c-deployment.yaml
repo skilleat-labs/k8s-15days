@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service
+  namespace: team-c
+  labels:
+    team: c
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-service
+      team: c
+  template:
+    metadata:
+      labels:
+        app: my-service
+        team: c
+        version: v3.0.0
+    spec:
+      containers:
+      - name: app
+        image: skilleat/rollout-demo:v3.0.0
+        ports:
+        - containerPort: 8080
+          name: http
