@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-pod-viewer
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: monitor-can-view-all-pods
+subjects:
+- kind: ServiceAccount
+  name: monitor-sa
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-pod-viewer
+  apiGroup: rbac.authorization.k8s.io

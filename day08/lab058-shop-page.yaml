@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shop-page
+data:
+  index.html: |
+    <html>
+    <head>
+      <meta charset="UTF-8">
+    </head>
+    <body>
+      <h1>쇼핑몰에 오신 것을 환영합니다</h1>
+      <p>현재 환경: 개발 (DEV)</p>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shop-nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: shop-page-volume
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: shop-page-volume
+    configMap:
+      name: shop-page
